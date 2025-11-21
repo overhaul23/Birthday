@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Cutie!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        @keyframes flicker {
+            0%, 100% { opacity: 1; transform: scale(1) translateY(0); }
+            25% { opacity: 0.9; transform: scale(1.05) translateY(-2px); }
+            50% { opacity: 0.95; transform: scale(1.1) translateY(-3px); }
+            75% { opacity: 0.85; transform: scale(1.03) translateY(-1px); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(2deg); }
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .star-twinkle {
+            animation: twinkle 2s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="m-0 p-0">
+    <div id="app" class="min-h-screen bg-gradient-to-br from-pink-500 via-purple-500 to-indigo-600 flex items-center justify-center p-4 relative overflow-x-hidden">
+        <!-- Background Stars -->
+        <div id="stars" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+        
+        <!-- Confetti Container -->
+        <div id="confetti-container" class="absolute inset-0 pointer-events-none"></div>
+
+        <div class="text-center max-w-3xl z-10 relative">
+            <!-- Title -->
+            <div class="mb-8" style="animation: slideIn 1s ease-out">
+                <h1 class="text-6xl md:text-7xl font-bold text-white mb-2 drop-shadow-2xl" 
+                    style="text-shadow: 0 0 20px rgba(255,255,255,0.8), 0 0 40px rgba(255,215,0,0.6); font-family: cursive;">
+                    Happy Birthday Cutie ☺
+                </h1>
+            </div>
+
+            <!-- Instructions -->
+            <div id="instructions" class="mb-6" style="animation: slideIn 1.2s ease-out">
+                <p class="text-3xl md:text-4xl text-yellow-200 font-bold mb-2 animate-pulse drop-shadow-lg"
+                   style="text-shadow: 0 0 10px rgba(0,0,0,0.5);">
+                    Click the Cake ☺
+                </p>
+            </div>
+
+            <!-- Cake Container -->
+            <div class="flex justify-center items-center my-12">
+                <div id="cake" class="relative cursor-pointer transition-all duration-300 hover:scale-110"
+                     style="filter: drop-shadow(0 10px 30px rgba(0,0,0,0.4));">
+                    
+                    <!-- Candle Flame -->
+                    <div id="flame" class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-16 z-10 cursor-pointer hidden"
+                         title="Click to blow out!">
+                        <div class="w-8 h-12 bg-gradient-to-t from-orange-500 via-yellow-400 to-yellow-200 rounded-full relative"
+                             style="animation: flicker 0.3s ease-in-out infinite; filter: blur(1px);">
+                            <div class="absolute inset-0 bg-gradient-to-t from-red-500 via-orange-300 to-yellow-100 rounded-full blur-md"></div>
+                            <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 w-5 h-6 bg-yellow-100 rounded-full blur-sm"></div>
+                        </div>
+                    </div>
+
+                    <!-- Candle Stick -->
+                    <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-10 w-5 h-20 bg-gradient-to-b from-red-400 via-red-500 to-red-600 rounded-t-lg shadow-lg z-5"
+                         style="border: 2px solid rgba(139, 0, 0, 0.5);">
+                        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-6 h-2 bg-red-300 rounded-full"></div>
+                    </div>
+
+                    <!-- Cake - Top Tier -->
+                    <div class="relative w-52 h-20 bg-gradient-to-b from-cyan-300 via-cyan-400 to-cyan-500 rounded-t-3xl shadow-xl border-4 border-cyan-600 mx-auto">
+                        <div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-2xl">🎂</div>
+                        <div class="absolute bottom-0 w-full h-5 bg-pink-400 flex justify-around items-center px-3 rounded-b-lg">
+                            <div class="w-5 h-5 bg-yellow-300 rounded-full transform -translate-y-2 shadow-md border-2 border-yellow-500"></div>
+                            <div class="w-5 h-5 bg-yellow-300 rounded-full transform -translate-y-2 shadow-md border-2 border-yellow-500"></div>
+                            <div class="w-5 h-5 bg-yellow-300 rounded-full transform -translate-y-2 shadow-md border-2 border-yellow-500"></div>
+                            <div class="w-5 h-5 bg-yellow-300 rounded-full transform -translate-y-2 shadow-md border-2 border-yellow-500"></div>
+                            <div class="w-5 h-5 bg-yellow-300 rounded-full transform -translate-y-2 shadow-md border-2 border-yellow-500"></div>
+                            <div class="w-5 h-5 bg-yellow-300 rounded-full transform -translate-y-2 shadow-md border-2 border-yellow-500"></div>
+                            <div class="w-5 h-5 bg-yellow-300 rounded-full transform -translate-y-2 shadow-md border-2 border-yellow-500"></div>
+                            <div class="w-5 h-5 bg-yellow-300 rounded-full transform -translate-y-2 shadow-md border-2 border-yellow-500"></div>
+                            <div class="w-5 h-5 bg-yellow-300 rounded-full transform -translate-y-2 shadow-md border-2 border-yellow-500"></div>
+                        </div>
+                    </div>
+
+                    <!-- Cake - Middle Tier -->
+                    <div class="relative w-60 h-24 bg-gradient-to-b from-purple-300 via-purple-400 to-purple-500 shadow-xl border-4 border-purple-600 mx-auto">
+                        <div class="absolute top-3 left-1/2 transform -translate-x-1/2 text-3xl">✨</div>
+                        <div class="absolute bottom-0 w-full h-5 bg-pink-500 flex justify-around items-center px-3">
+                            <div class="w-5 h-5 bg-cyan-300 rounded-full transform -translate-y-2 shadow-md border-2 border-cyan-500"></div>
+                            <div class="w-5 h-5 bg-cyan-300 rounded-full transform -translate-y-2 shadow-md border-2 border-cyan-500"></div>
+                            <div class="w-5 h-5 bg-cyan-300 rounded-full transform -translate-y-2 shadow-md border-2 border-cyan-500"></div>
+                            <div class="w-5 h-5 bg-cyan-300 rounded-full transform -translate-y-2 shadow-md border-2 border-cyan-500"></div>
+                            <div class="w-5 h-5 bg-cyan-300 rounded-full transform -translate-y-2 shadow-md border-2 border-cyan-500"></div>
+                            <div class="w-5 h-5 bg-cyan-300 rounded-full transform -translate-y-2 shadow-md border-2 border-cyan-500"></div>
+                            <div class="w-5 h-5 bg-cyan-300 rounded-full transform -translate-y-2 shadow-md border-2 border-cyan-500"></div>
+                            <div class="w-5 h-5 bg-cyan-300 rounded-full transform -translate-y-2 shadow-md border-2 border-cyan-500"></div>
+                            <div class="w-5 h-5 bg-cyan-300 rounded-full transform -translate-y-2 shadow-md border-2 border-cyan-500"></div>
+                            <div class="w-5 h-5 bg-cyan-300 rounded-full transform -translate-y-2 shadow-md border-2 border-cyan-500"></div>
+                            <div class="w-5 h-5 bg-cyan-300 rounded-full transform -translate-y-2 shadow-md border-2 border-cyan-500"></div>
+                        </div>
+                    </div>
+
+                    <!-- Cake - Bottom Tier -->
+                    <div class="relative w-72 h-28 bg-gradient-to-b from-pink-300 via-pink-400 to-pink-500 rounded-b-3xl shadow-2xl border-4 border-pink-600 mx-auto">
+                        <div class="absolute top-4 left-1/2 transform -translate-x-1/2 text-4xl">🎉</div>
+                        <div class="absolute bottom-6 w-full h-6 bg-purple-500 flex justify-around items-center px-4">
+                            <div class="w-5 h-5 bg-yellow-400 rounded-full transform -translate-y-3 shadow-lg border-2 border-yellow-600"></div>
+                            <div class="w-5 h-5 bg-yellow-400 rounded-full transform -translate-y-3 shadow-lg border-2 border-yellow-600"></div>
+                            <div class="w-5 h-5 bg-yellow-400 rounded-full transform -translate-y-3 shadow-lg border-2 border-yellow-600"></div>
+                            <div class="w-5 h-5 bg-yellow-400 rounded-full transform -translate-y-3 shadow-lg border-2 border-yellow-600"></div>
+                            <div class="w-5 h-5 bg-yellow-400 rounded-full transform -translate-y-3 shadow-lg border-2 border-yellow-600"></div>
+                            <div class="w-5 h-5 bg-yellow-400 rounded-full transform -translate-y-3 shadow-lg border-2 border-yellow-600"></div>
+                            <div class="w-5 h-5 bg-yellow-400 rounded-full transform -translate-y-3 shadow-lg border-2 border-yellow-600"></div>
+                            <div class="w-5 h-5 bg-yellow-400 rounded-full transform -translate-y-3 shadow-lg border-2 border-yellow-600"></div>
+                            <div class="w-5 h-5 bg-yellow-400 rounded-full transform -translate-y-3 shadow-lg border-2 border-yellow-600"></div>
+                            <div class="w-5 h-5 bg-yellow-400 rounded-full transform -translate-y-3 shadow-lg border-2 border-yellow-600"></div>
+                            <div class="w-5 h-5 bg-yellow-400 rounded-full transform -translate-y-3 shadow-lg border-2 border-yellow-600"></div>
+                            <div class="w-5 h-5 bg-yellow-400 rounded-full transform -translate-y-3 shadow-lg border-2 border-yellow-600"></div>
+                            <div class="w-5 h-5 bg-yellow-400 rounded-full transform -translate-y-3 shadow-lg border-2 border-yellow-600"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message -->
+            <div id="message" class="mt-8" style="animation: slideIn 1.5s ease-out">
+                <p class="text-2xl md:text-3xl text-white font-light drop-shadow-lg"
+                   style="text-shadow: 0 0 15px rgba(255,20,147,0.8); font-family: cursive;">
+                  YOUR BOYFRIEND LOVES YOU SO MUCH!!!
+                </p>
+            </div>
+
+            <!-- Celebration Message (hidden initially) -->
+            <div id="celebration" class="mt-8 bg-white bg-opacity-20 backdrop-blur-md rounded-3xl p-8 shadow-2xl border-4 border-white border-opacity-30 hidden">
+                <div class="flex justify-center gap-3 mb-4">
+                    <span class="text-4xl animate-bounce">🎁</span>
+                    <span class="text-4xl star-twinkle">✨</span>
+                    <span class="text-4xl animate-bounce">🎁</span>
+                </div>
+                
+                <p class="text-4xl md:text-5xl text-white font-bold mb-4 drop-shadow-lg"
+                   style="animation: heartbeat 1.5s ease-in-out infinite;">
+                    🎉 Yaaay! You Did It! 🎉
+                </p>
+                
+                <p class="text-2xl md:text-3xl text-yellow-100 mb-3 font-semibold drop-shadow-md">
+                    Wishing you the most AMAZING year ahead! ✨
+                </p>
+                
+                <p class="text-xl md:text-2xl text-pink-200 mb-4 drop-shadow-md">
+                    I LOVE YOU SO MUCH STUPIDDD! 💖
+                </p>
+                
+                <div class="flex justify-center gap-4 mt-6">
+                    <span class="text-4xl" style="animation: heartbeat 1s ease-in-out infinite;">❤️</span>
+                    <span class="text-4xl star-twinkle">⭐</span>
+                    <span class="text-4xl" style="animation: heartbeat 1s ease-in-out infinite 0.3s;">💖</span>
+                    <span class="text-4xl star-twinkle" style="animation-delay: 0.4s;">⭐</span>
+                    <span class="text-4xl" style="animation: heartbeat 1s ease-in-out infinite 0.6s;">❤️</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cakeClicked = false;
+        let candleLit = false;
+        let isBlown = false;
+        let micPermission = false;
+        let audioContext = null;
+        let analyser = null;
+        let microphone = null;
+        let stream = null;
+        let animationFrame = null;
+
+        // Create background stars
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 20; i++) {
+            const star = document.createElement('div');
+            star.className = 'absolute text-yellow-300 opacity-70 star-twinkle';
+            star.textContent = '⭐';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        const cake = document.getElementById('cake');
+        const flame = document.getElementById('flame');
+        const instructions = document.getElementById('instructions');
+        const message = document.getElementById('message');
+        const celebration = document.getElementById('celebration');
+        const confettiContainer = document.getElementById('confetti-container');
+
+        cake.addEventListener('click', function() {
+            if (!cakeClicked) {
+                cakeClicked = true;
+                candleLit = true;
+                flame.classList.remove('hidden');
+                cake.style.animation = 'float 3s ease-in-out infinite';
+                
+                instructions.innerHTML = `
+                    <p class="text-3xl md:text-4xl text-yellow-200 font-bold mb-2 animate-pulse drop-shadow-lg"
+                       style="text-shadow: 0 0 10px rgba(0,0,0,0.5);">
+                        Now, Blow the candle out! 💨
+                    </p>
+                    <p class="text-lg text-yellow-100 mt-2 flex items-center justify-center gap-2">
+                        <span class="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></span>
+                        
+                    </p>
+                `;
+                
+                // Auto-request microphone
+                requestMicrophone();
+            }
+        });
+
+        flame.addEventListener('click', function(e) {
+            e.stopPropagation();
+            blowOutCandle();
+        });
+
+        async function requestMicrophone() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    audio: {
+                        echoCancellation: false,
+                        noiseSuppression: false,
+                        autoGainControl: false
+                    } 
+                });
+                
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                microphone = audioContext.createMediaStreamSource(stream);
+                
+                analyser.smoothingTimeConstant = 0.3;
+                analyser.fftSize = 512;
+                
+                microphone.connect(analyser);
+                micPermission = true;
+                
+                instructions.innerHTML = `
+                    <p class="text-3xl md:text-4xl text-yellow-200 font-bold mb-2 animate-pulse drop-shadow-lg"
+                       style="text-shadow: 0 0 10px rgba(0,0,0,0.5);">
+                        Now, Blow the candle out! 💨
+                    </p>
+                    <p class="text-lg text-green-200 mt-2 flex items-center justify-center gap-2">
+                        <span class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
+                        Microphone Active - Blow now!
+                    </p>
+                `;
+                
+                startBlowDetection();
+            } catch (err) {
+                console.error('Microphone access denied:', err);
+                alert('Please allow microphone access to blow out the candle! 🎤\n\nYou can also click the flame directly.');
+            }
+        }
+
+        function startBlowDetection() {
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            const timeDataArray = new Uint8Array(analyser.fftSize);
+            let baselineNoiseLevel = 0;
+            let calibrationFrames = 60; // 1 second calibration
+            let frameCount = 0;
+            let consecutiveHighReadings = 0;
+
+            function checkBlow() {
+                if (!candleLit || isBlown) return;
+
+                analyser.getByteFrequencyData(dataArray);
+                analyser.getByteTimeDomainData(timeDataArray);
+                
+                // Calculate frequency average
+                const average = dataArray.reduce((sum, value) => sum + value, 0) / bufferLength;
+                
+                // Calculate RMS from time domain
+                let sum = 0;
+                for (let i = 0; i < timeDataArray.length; i++) {
+                    const normalized = (timeDataArray[i] - 128) / 128;
+                    sum += normalized * normalized;
+                }
+                const rms = Math.sqrt(sum / timeDataArray.length) * 100;
+                
+                // Calibration phase - establish baseline noise
+                if (frameCount < calibrationFrames) {
+                    baselineNoiseLevel += average;
+                    frameCount++;
+                    if (frameCount === calibrationFrames) {
+                        baselineNoiseLevel = (baselineNoiseLevel / calibrationFrames);
+                        console.log('✅ Baseline noise calibrated:', baselineNoiseLevel.toFixed(2));
+                        
+                        instructions.innerHTML = `
+                            <p class="text-3xl md:text-4xl text-yellow-200 font-bold mb-2 animate-pulse drop-shadow-lg"
+                               style="text-shadow: 0 0 10px rgba(0,0,0,0.5);">
+                                Now, Blow the candle out! 💨
+                            </p>
+                            <p class="text-lg text-green-200 mt-2 flex items-center justify-center gap-2">
+                                <span class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></span>
+                                Listening... Blow into your mic!
+                            </p>
+                        `;
+                    }
+                    animationFrame = requestAnimationFrame(checkBlow);
+                    return;
+                }
+                
+                // Calculate spike above baseline (must be significant)
+                const spike = average - baselineNoiseLevel;
+                
+                // Look at low frequency components (blow sound is mostly low freq)
+                const lowFreqSum = dataArray.slice(0, Math.floor(bufferLength / 4)).reduce((a, b) => a + b, 0);
+                const lowFreqAvg = lowFreqSum / Math.floor(bufferLength / 4);
+                
+                console.log('Levels - Avg:', average.toFixed(1), 'Baseline:', baselineNoiseLevel.toFixed(1), 'Spike:', spike.toFixed(1), 'RMS:', rms.toFixed(1), 'LowFreq:', lowFreqAvg.toFixed(1));
+                
+                // Strict detection: needs LARGE spike AND high RMS AND strong low frequencies
+                if (spike > 40 && rms > 20 && lowFreqAvg > baselineNoiseLevel + 30) {
+                    consecutiveHighReadings++;
+                    console.log('🌬️ BLOW DETECTED! Count:', consecutiveHighReadings);
+                    if (consecutiveHighReadings >= 5) {
+                        blowOutCandle();
+                        return;
+                    }
+                } else {
+                    // Decay slowly
+                    if (consecutiveHighReadings > 0) {
+                        consecutiveHighReadings--;
+                    }
+                }
+
+                animationFrame = requestAnimationFrame(checkBlow);
+            }
+
+            checkBlow();
+        }
+
+        function blowOutCandle() {
+            if (isBlown) return;
+            
+            isBlown = true;
+            candleLit = false;
+            flame.classList.add('hidden');
+            
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            if (animationFrame) {
+                cancelAnimationFrame(animationFrame);
+            }
+            if (audioContext) {
+                audioContext.close();
+            }
+            
+            triggerCelebration();
+        }
+
+        function triggerCelebration() {
+            message.classList.add('hidden');
+            celebration.classList.remove('hidden');
+            celebration.style.animation = 'slideIn 0.8s ease-out';
+            instructions.classList.add('hidden');
+            
+            // Create confetti
+            const colors = ['#FF1493', '#00CED1', '#FFD700', '#FF6347', '#9370DB', '#00FF7F'];
+            for (let i = 0; i < 80; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 0.8 + 's';
+                confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+                confetti.style.animation = `fall ${2 + Math.random() * 2}s linear ${Math.random() * 0.8}s forwards`;
+                confettiContainer.appendChild(confetti);
+            }
+            
+            setTimeout(() => {
+                confettiContainer.innerHTML = '';
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
